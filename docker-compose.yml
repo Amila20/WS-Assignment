@@ -1,0 +1,80 @@
+# version: '3.8'
+
+# services:
+#   backend:
+#     build:
+#       context: ./backend
+#     volumes:
+#       - ./backend:/app
+#     environment:
+#       - MYSQL_HOST=mysql
+#       - MYSQL_PORT=3306
+#       - MYSQL_USER=root
+#       - MYSQL_PASSWORD=rootpassword
+#       - MYSQL_DB=user_management
+#     depends_on:
+#       - mysql
+#     expose:
+#       - 5000
+
+#   frontend:
+#     image: nginx:alpine
+#     volumes:
+#       - ./frontend:/usr/share/nginx/html
+#       - ./nginx.conf:/etc/nginx/nginx.conf
+#     ports:
+#       - 80:80
+#     depends_on:
+#       - backend
+
+#   mysql:
+#     image: mysql:8.0
+#     environment:
+#       MYSQL_ROOT_PASSWORD: rootpassword
+#       MYSQL_DATABASE: mydatabase
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+#     ports:
+#       - 3306:3306
+
+# volumes:
+#   mysql_data:
+
+
+version: '3.8'
+
+# services:
+#   backend:
+#     build: ./backend
+#     ports:
+#       - "5000:5000"
+#     environment:
+#       - FLASK_ENV=app.py
+#     volumes:
+#       - ./frontend:/app
+#   frontend:
+#     build: ./frontend
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - backend
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
