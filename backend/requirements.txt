@@ -1,0 +1,10 @@
+wheel
+Flask
+boto3
+pymysql
+SQLAlchemy
+mysqlclient==2.1.1
+flask_sqlalchemy
+werkzeug
+flask-cors
+
